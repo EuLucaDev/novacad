@@ -300,8 +300,7 @@ mod tests {
             units: 0,
             array: None,
         };
-        blk.entities
-            .push(Entity::new(novacad_doc::Handle(1_000_000), EntityKind::Circle(novacad_doc::Circle { center: v3(0.0, 0.0), radius: 1.0 })));
+        blk.entities.push(Entity::new(novacad_doc::Handle(1_000_000), EntityKind::Circle(novacad_doc::Circle { center: v3(0.0, 0.0), radius: 1.0 })));
         d.blocks.insert("B".into(), Arc::new(blk));
         d.ensure_layer("OFF");
         if let Some(l) = d.layer_mut("OFF") {

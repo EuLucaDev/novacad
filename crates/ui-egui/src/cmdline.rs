@@ -3,8 +3,8 @@
 
 use std::collections::HashSet;
 
-use novacad_engine::Input;
 use egui::{Key, Pos2, Rect, Sense, Stroke, pos2, vec2};
+use novacad_engine::Input;
 
 use crate::CadApp;
 use crate::theme::Tokens;
@@ -646,8 +646,8 @@ fn history_window(app: &CadApp, ui: &mut egui::Ui, r: Rect) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use novacad_engine::Session;
     use egui::{Event, PointerButton};
+    use novacad_engine::Session;
 
     #[test]
     fn compact_canvas_contains_history_controls_without_changing_line_preference() {

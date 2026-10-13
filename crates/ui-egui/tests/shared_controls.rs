@@ -1,10 +1,10 @@
 //! Interaction and optional offscreen evidence for the application's painted controls.
 
-use novacad_engine::Session;
-use novacad_ui_egui::{CadApp, Services, icons, theme};
 use egui::{Event, Key, Modifiers, PointerButton, Response, pos2, vec2};
 use egui_kittest::Harness;
 use egui_kittest::kittest::Queryable;
+use novacad_engine::Session;
+use novacad_ui_egui::{CadApp, Services, icons, theme};
 
 fn app() -> CadApp {
     let mut app = CadApp::new(Session::default(), Services::default());

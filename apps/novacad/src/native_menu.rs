@@ -4,10 +4,10 @@
 use std::collections::HashMap;
 use std::str::FromStr;
 
-use novacad_ui_egui::menus::{self, Entry};
-use novacad_ui_egui::{CadApp, i18n};
 use muda::accelerator::Accelerator;
 use muda::{Menu, MenuEvent, MenuItem, PredefinedMenuItem, Submenu};
+use novacad_ui_egui::menus::{self, Entry};
+use novacad_ui_egui::{CadApp, i18n};
 
 pub struct NativeMenu {
     _menu: Menu,

@@ -14,7 +14,7 @@ fn main() {
     }
     res.set("ProductName", "Nova CAD")
         .set("FileDescription", "Nova CAD computer-aided design")
-        .set("CompanyName", "Learning Machines LLC")
+        .set("CompanyName", "Nova Foods")
         .set("LegalCopyright", "Copyright (c) 2026 Nova Foods Team and the Nova CAD contributors. MIT OR Apache-2.0.")
         .set("OriginalFilename", "novacad.exe")
         .set("InternalName", "novacad");

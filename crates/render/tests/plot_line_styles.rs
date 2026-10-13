@@ -4,9 +4,7 @@
 use std::sync::Arc;
 
 use novacad_color::Color;
-use novacad_doc::{
-    Common, Drawing, EndStyle, EntityKind, FillStyle, JoinStyle, Line, LwPolyline, PlotStyle, PlotStyleTable, Solid, Space, Viewport,
-};
+use novacad_doc::{Common, Drawing, EndStyle, EntityKind, FillStyle, JoinStyle, Line, LwPolyline, PlotStyle, PlotStyleTable, Solid, Space, Viewport};
 use novacad_geom::{PolyVertex, Vec2, Vec3};
 use novacad_render::{DisplayList, Kind, Options, VIEWPORT_CONTENT, build, build_plot, pen};
 

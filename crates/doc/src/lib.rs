@@ -22,13 +22,13 @@ mod tables;
 use std::collections::{BTreeMap, BTreeSet};
 
 pub use array::*;
-pub use novacad_color as color;
-pub use novacad_geom as geom;
 pub use constraint::*;
 pub use entity::*;
 pub use extents::{MAX_BLOCK_DEPTH, entity_bounds};
 pub use gdt::*;
 pub use header::{HVal, Header};
+pub use novacad_color as color;
+pub use novacad_geom as geom;
 pub use plotstyle::*;
 pub use plotter::*;
 pub use refedit::{RefEdit, WorkItem};

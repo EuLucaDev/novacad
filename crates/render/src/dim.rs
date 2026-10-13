@@ -819,8 +819,7 @@ pub fn dimension_geometry_with(d: &Dimension, st: &DimStyle, dimscale: f64, font
             let r = vertex.dist(arc_pt).max(1e-9);
             let s = vertex.angle_to(a1);
             let e = vertex.angle_to(a2);
-            let arc =
-                if novacad_geom::angle_in_sweep(vertex.angle_to(arc_pt), s, e) { Arc::new(vertex, r, s, e) } else { Arc::new(vertex, r, e, s) };
+            let arc = if novacad_geom::angle_in_sweep(vertex.angle_to(arc_pt), s, e) { Arc::new(vertex, r, s, e) } else { Arc::new(vertex, r, e, s) };
             let sweep = ccw_sweep(arc.start, arc.end);
             g.measurement = sweep;
             // DIMAZIN 1 / 2 suppress leading / trailing zeros (DIMZIN's bits 4 / 8).

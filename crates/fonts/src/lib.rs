@@ -26,7 +26,7 @@ pub use mtext::para::{DEFAULT_TAB, ListStyle, MTextColumnSpec, ParaAlign, ParaPr
 pub use mtext::{MTextColor, MTextLayout, MTextParams, MTextPiece, layout_mtext, layout_mtext_with, plain_mtext};
 
 mod novafoods_fonts;
-pub use novafoods_fonts::{NOVAFOODS_FONTS, CraftFont};
+pub use novafoods_fonts::{CraftFont, NOVAFOODS_FONTS};
 
 /// Name of the built-in font.
 pub const BUILTIN_FONT: &str = "Nova CAD Stroke";

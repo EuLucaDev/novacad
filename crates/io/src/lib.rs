@@ -23,9 +23,9 @@ mod dxf_mline;
 use novacad_doc::{Drawing, Space};
 use novacad_geom::Bounds2;
 
-pub use novacad_dxf::Version;
 pub use dxf_read::entity_from_groups;
 pub use dxf_write::entity_groups;
+pub use novacad_dxf::Version;
 pub use pdf::{PdfOptions, pdf, plot};
 
 /// How a drawing is saved as DXF or DWG.

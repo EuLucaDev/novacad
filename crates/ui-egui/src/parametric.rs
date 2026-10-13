@@ -6,9 +6,9 @@
 //! Every edit runs an engine command (`parameters {name, expr}` / `{delete}`); this module only
 //! draws and collects input.
 
+use egui::{Color32, Pos2, Rect, Sense, Shape, Stroke, pos2, vec2};
 use novacad_doc::{ConstraintKind, DistAxis, Drawing, EntityKind, GeomRef, Handle, Sub};
 use novacad_geom::Vec2;
-use egui::{Color32, Pos2, Rect, Sense, Shape, Stroke, pos2, vec2};
 use serde::Deserialize;
 use serde_json::{Value, json};
 

@@ -37,11 +37,11 @@ use novacad_geom::{Bounds2, Vec2};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
+pub use cmd::hatch::{HatchPicks, PatternChoice, PickMode, pattern_choices};
+pub use cmd::{CommandInfo, CommandSpec, command_specs, find_command};
 pub use novacad_doc as doc;
 pub use novacad_geom as geom;
 pub use novacad_render as render;
-pub use cmd::hatch::{HatchPicks, PatternChoice, PickMode, pattern_choices};
-pub use cmd::{CommandInfo, CommandSpec, command_specs, find_command};
 pub use prompt::{Accept, Drag, Input, Interactive, Picker, Prompt, Step};
 
 #[derive(Debug, thiserror::Error)]

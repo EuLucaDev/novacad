@@ -3,8 +3,8 @@
 //! Icons are line drawings on a 24×24 design grid: light strokes for existing geometry, blue for
 //! the geometry a command creates and orange dots for picked points.
 
-use nova_ui::buttons::{ButtonVisuals, IconButton, IconButtonStyle};
 use egui::{Color32, Painter, Pos2, Rect, Stroke, pos2};
+use nova_ui::buttons::{ButtonVisuals, IconButton, IconButtonStyle};
 
 use crate::theme::Tokens;
 

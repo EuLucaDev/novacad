@@ -1,8 +1,8 @@
 //! Quick Select (QSELECT dialog → the engine `qselect` command) and the Quick Properties
 //! palette shown near the cursor while objects are selected and QPMODE is on.
 
-use novacad_doc::{EntityKind, Handle};
 use egui::{Pos2, RichText, vec2};
+use novacad_doc::{EntityKind, Handle};
 use serde_json::{Value, json};
 
 use crate::CadApp;

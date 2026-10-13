@@ -5,12 +5,12 @@
 
 use std::sync::Arc;
 
+use egui::{RichText, Stroke, vec2};
 use novacad_color::Rgb;
 use novacad_engine::blockedit::CURRENT_DRAWING;
 use novacad_engine::doc::{Drawing, EntityKind};
 use novacad_geom::Vec2;
 use novacad_render::DisplayList;
-use egui::{RichText, Stroke, vec2};
 use serde_json::{Value, json};
 
 use crate::CadApp;

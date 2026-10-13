@@ -336,9 +336,8 @@ pub fn select_polygon(d: &Drawing, space: &Space, poly: &[Vec2], crossing: bool)
         }
         let polys = hit_polylines(d, e, tol);
         let crosses = polys.iter().any(|pl| {
-            pl.windows(2).any(|w| {
-                w.first().zip(w.get(1)).is_some_and(|(p, q)| edges.iter().any(|f| novacad_geom::line_line(f, &Line::new(*p, *q)).is_some()))
-            })
+            pl.windows(2)
+                .any(|w| w.first().zip(w.get(1)).is_some_and(|(p, q)| edges.iter().any(|f| novacad_geom::line_line(f, &Line::new(*p, *q)).is_some())))
         });
         let mut pts = polys.iter().flatten();
         let hit = if crossing {

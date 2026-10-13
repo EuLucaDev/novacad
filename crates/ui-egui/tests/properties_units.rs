@@ -2,12 +2,12 @@
 //! them (feet and inches included), distances are shown in the drawing's units, and text that
 //! isn't a number is reported instead of being dropped.
 
-use novacad_engine::Session;
-use novacad_engine::doc::EntityKind;
-use novacad_ui_egui::{CadApp, Services};
 use egui::{Key, vec2};
 use egui_kittest::Harness;
 use egui_kittest::kittest::{Queryable, by};
+use novacad_engine::Session;
+use novacad_engine::doc::EntityKind;
+use novacad_ui_egui::{CadApp, Services};
 use serde_json::json;
 
 /// A selected TEXT 2.5 high, with lengths in `lunits`.

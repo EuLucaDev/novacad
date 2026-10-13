@@ -1,13 +1,13 @@
 //! The drawing area: grid, entities, selection highlighting, grips, rubber bands, object-snap
 //! markers, crosshair cursor, ViewCube, UCS icon and mouse handling.
 
+use egui::{Color32, Pos2, Rect, Sense, Shape, Stroke, pos2, vec2};
 use novacad_color::Rgb;
 use novacad_doc::Handle;
 use novacad_engine::Input;
 use novacad_engine::snap::{self, SnapHit};
 use novacad_geom::{Bounds2, Vec2};
 use novacad_render::{DisplayList, Kind};
-use egui::{Color32, Pos2, Rect, Sense, Shape, Stroke, pos2, vec2};
 
 use crate::CadApp;
 use crate::theme::Tokens;
@@ -344,10 +344,7 @@ fn ensure_list(app: &mut CadApp, xf: &Xf, views: &[(Bounds2, f64)], ctx: &egui::
 /// The active MSPACE viewport when its contents are drawn apart from the layout's list (see
 /// [`VpContent`]), with its clip outline when it is clipped. A clipped viewport is clipped with
 /// the GPU's stencil buffer (`stencil`); without one its contents stay in the list.
-fn split_viewport(
-    st: &novacad_engine::DocState,
-    stencil: bool,
-) -> Option<(Handle, novacad_doc::Viewport, Option<novacad_render::clip::PolyClip>)> {
+fn split_viewport(st: &novacad_engine::DocState, stencil: bool) -> Option<(Handle, novacad_doc::Viewport, Option<novacad_render::clip::PolyClip>)> {
     let (h, vp) = st.active_viewport()?;
     let clip = novacad_render::viewport_clip(&st.doc, h, &vp);
     (clip.is_none() || stencil).then_some((h, vp, clip))

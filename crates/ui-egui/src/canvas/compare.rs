@@ -4,9 +4,9 @@
 
 use std::sync::Arc;
 
+use egui::{Rect, RichText, Stroke, vec2};
 use novacad_engine::doc::Handle;
 use novacad_render::DisplayList;
-use egui::{Rect, RichText, Stroke, vec2};
 use serde_json::json;
 
 use super::{Xf, draw_highlight};

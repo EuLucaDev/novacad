@@ -3,8 +3,8 @@
 //! the preferences, and shows the Drawing Recovery list after a crash: each autosaved drawing can
 //! be opened (as an unsaved copy) or discarded. On the web there is no autosave yet.
 
-use novacad_engine::autosave::{self, Recoverable};
 use egui::{RichText, vec2};
+use novacad_engine::autosave::{self, Recoverable};
 use serde_json::{Value, json};
 
 use crate::CadApp;

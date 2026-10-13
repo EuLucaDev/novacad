@@ -1,9 +1,9 @@
+use egui::vec2;
+use egui_kittest::Harness;
 use novacad_doc::{Common, EntityKind, Space, Viewport};
 use novacad_engine::Session;
 use novacad_geom::Vec2;
 use novacad_ui_egui::{CadApp, Services};
-use egui::vec2;
-use egui_kittest::Harness;
 use serde_json::json;
 
 #[test]

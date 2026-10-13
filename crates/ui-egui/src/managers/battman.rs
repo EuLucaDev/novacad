@@ -2,8 +2,8 @@
 //! synchronize, move and remove them and fields to edit the selected one. Every change runs the
 //! `battman` command (`app.run`), so it is undoable and scriptable.
 
-use novacad_doc::EntityKind;
 use egui::{RichText, vec2};
+use novacad_doc::EntityKind;
 use serde_json::{Value, json};
 
 use crate::CadApp;

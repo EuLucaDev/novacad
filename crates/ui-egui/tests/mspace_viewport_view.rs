@@ -4,13 +4,13 @@
 //! realtime navigation changes the viewport's view without a new revision, and the layout's list
 //! kept showing the old view until some command rebuilt it.
 
+use egui::vec2;
+use egui_kittest::Harness;
 use novacad_engine::Session;
 use novacad_engine::doc::{Circle, Common, Drawing, EntityKind, Line, Space, Viewport};
 use novacad_engine::geom::{Bounds2, Vec2, Vec3};
 use novacad_engine::render::VIEWPORT_CONTENT;
 use novacad_ui_egui::{CadApp, Services};
-use egui::vec2;
-use egui_kittest::Harness;
 use serde_json::json;
 
 /// Model space: a line from (0,0) to (20,0). Layout1: an 8×6 viewport centred at (5,4) on paper,

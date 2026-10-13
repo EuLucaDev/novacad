@@ -5,12 +5,12 @@
 
 use std::sync::Arc;
 
+use egui_wgpu::wgpu;
+use egui_wgpu::{CallbackTrait, ScreenDescriptor};
 use novacad_engine::doc::Handle;
 use novacad_engine::geom::{Bounds2, Vec2};
 use novacad_engine::render::{DPrim, DisplayList, Kind};
 use novacad_ui_egui::gpu::{self, CanvasCallback, GpuFaults, LAYER_HIGHLIGHT, LAYER_MASK, LAYER_VIEWPORT, MeshSlot, Stencil};
-use egui_wgpu::wgpu;
-use egui_wgpu::{CallbackTrait, ScreenDescriptor};
 
 const SIZE: u32 = 64;
 const STENCIL: wgpu::TextureFormat = wgpu::TextureFormat::Stencil8;

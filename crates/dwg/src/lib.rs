@@ -413,7 +413,7 @@ pub use native::{dwg_to_dxf, dwg_to_dxf_noted, dwg_to_dxf_with, dxf_to_dwg, dxf_
 #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 fn unsupported(version: &str) -> String {
     let list: Vec<&str> = VERSIONS.iter().map(|(_, year)| *year).collect();
-    format!("DWG version `{version}` can't be written (NovaCad writes {})", list.join(", "))
+    format!("DWG version `{version}` can't be written (Nova CAD writes {})", list.join(", "))
 }
 
 #[cfg(target_arch = "wasm32")]

@@ -6,11 +6,11 @@
 //! The command-line text is the active field's text, so Backspace and Escape behave as usual;
 //! text that isn't a value (a keyword such as `C` for Copy) goes to the command as typed.
 
+use egui::{Color32, Pos2, Rect, Shape, Stroke, pos2, vec2};
 use novacad_doc::Handle;
 use novacad_engine::Input;
 use novacad_engine::grip_dims::{GripDim, GripDimKind, grip_dims, resolve};
 use novacad_geom::Vec2;
-use egui::{Color32, Pos2, Rect, Shape, Stroke, pos2, vec2};
 
 use crate::CadApp;
 use crate::theme::Tokens;
@@ -206,8 +206,8 @@ fn padlock(p: &egui::Painter, c: Pos2, color: Color32) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use novacad_doc::EntityKind;
     use egui::Event;
+    use novacad_doc::EntityKind;
 
     fn run_frame(app: &mut CadApp, ctx: &egui::Context, events: Vec<Event>) {
         let raw = egui::RawInput { screen_rect: Some(Rect::from_min_size(Pos2::ZERO, vec2(1400.0, 900.0))), events, ..Default::default() };

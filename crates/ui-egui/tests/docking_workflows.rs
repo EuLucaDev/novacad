@@ -1,10 +1,10 @@
 //! Panel moves use the real app shell, retain commands, and survive a complete UI-state reload.
 
-use novacad_engine::Session;
-use novacad_ui_egui::{CadApp, Services, UiState, docking::Panel};
 use egui::{Event, Modifiers, PointerButton, vec2};
 use egui_kittest::Harness;
 use egui_kittest::kittest::Queryable;
+use novacad_engine::Session;
+use novacad_ui_egui::{CadApp, Services, UiState, docking::Panel};
 use serde_json::json;
 
 fn harness(state: Option<UiState>, width: f32, scale: f32) -> Harness<'static, CadApp> {

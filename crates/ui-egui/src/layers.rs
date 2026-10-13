@@ -3,9 +3,9 @@
 //! VP Color columns. Every change runs an engine command (`layer.*`, `layerstate.*`, `vplayer`,
 //! `linetype`).
 
+use egui::{Color32, Rect, RichText, Sense, Stroke, pos2, vec2};
 use novacad_color::{Color, aci_rgb};
 use novacad_doc::{Handle, Layer, Lineweight};
-use egui::{Color32, Rect, RichText, Sense, Stroke, pos2, vec2};
 use serde_json::{Value, json};
 
 use crate::CadApp;

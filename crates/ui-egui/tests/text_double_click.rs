@@ -1,11 +1,11 @@
 //! Double-clicking text with no command running edits it, as in AutoCAD (#842).
 
+use egui::{Event, Modifiers, PointerButton, Pos2, vec2};
+use egui_kittest::Harness;
 use novacad_engine::doc::EntityKind;
 use novacad_engine::geom::Vec2;
 use novacad_engine::{Input, Session};
 use novacad_ui_egui::{CadApp, Services};
-use egui::{Event, Modifiers, PointerButton, Pos2, vec2};
-use egui_kittest::Harness;
 use serde_json::json;
 
 fn harness() -> Harness<'static, CadApp> {

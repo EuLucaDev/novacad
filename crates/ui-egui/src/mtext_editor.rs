@@ -6,9 +6,9 @@
 
 use std::sync::Arc;
 
-use novacad_engine::mtext_edit::{CharFmt, Flag, Formatted, ListStyle, MTextColor, ParaAlign, TabKind};
 use egui::text::{CCursor, CCursorRange, LayoutJob};
 use egui::{Align2, Color32, FontId, Rect, RichText, Sense, Shape, Stroke, TextFormat, pos2, vec2};
+use novacad_engine::mtext_edit::{CharFmt, Flag, Formatted, ListStyle, MTextColor, ParaAlign, TabKind};
 
 use crate::CadApp;
 use crate::theme::Tokens;

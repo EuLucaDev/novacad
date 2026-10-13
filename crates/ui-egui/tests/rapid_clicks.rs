@@ -1,11 +1,11 @@
 //! Fast drafting: every click on the canvas places a point, however fast it comes (#815).
 
+use egui::{Event, Modifiers, PointerButton, Pos2, vec2};
+use egui_kittest::Harness;
 use novacad_engine::Session;
 use novacad_engine::doc::{Drawing, EntityKind, Space};
 use novacad_engine::geom::Vec2;
 use novacad_ui_egui::{CadApp, Services};
-use egui::{Event, Modifiers, PointerButton, Pos2, vec2};
-use egui_kittest::Harness;
 use serde_json::json;
 
 fn harness() -> Harness<'static, CadApp> {

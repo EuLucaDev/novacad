@@ -1,13 +1,13 @@
 //! Recently opened files (#858): File ▸ Open Recent and the Start page list the drawings opened
 //! from a path, newest first, and keep them across restarts.
 
+use egui::{Rect, Shape, vec2};
+use egui_kittest::Harness;
 use novacad_engine::Session;
 use novacad_engine::cmd::file::{IoHooks, set_io};
 use novacad_engine::doc::Drawing;
 use novacad_ui_egui::menus::{self, Entry};
 use novacad_ui_egui::{CadApp, Services};
-use egui::{Rect, Shape, vec2};
-use egui_kittest::Harness;
 
 /// Two drawing files on disk (the reader below accepts anything, so their contents don't matter).
 fn drawings(test: &str) -> (String, String) {

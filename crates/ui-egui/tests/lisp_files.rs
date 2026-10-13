@@ -36,8 +36,8 @@ fn a_long_routine_runs_across_frames() {
 /// and clicks used to go to object selection instead (found running the app by hand).
 #[test]
 fn a_canvas_click_answers_a_routine_waiting_for_a_point() {
-    use novacad_engine::geom::Vec2;
     use egui::{Event, Modifiers, PointerButton, vec2};
+    use novacad_engine::geom::Vec2;
     let mut app = CadApp::new(Session::new(), Services::default());
     app.canvas.zoom_pending = false;
     let mut h = egui_kittest::Harness::builder().with_size(vec2(1600.0, 1000.0)).build_ui_state(

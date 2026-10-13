@@ -1,13 +1,13 @@
 //! Measure Distance uses real pointer snaps in MODEL and PAPER, including viewport scale (#516).
 
+use egui::{Event, Modifiers, PointerButton, Pos2, vec2};
+use egui_kittest::Harness;
+use egui_kittest::kittest::Queryable;
 use novacad_engine::Session;
 use novacad_engine::doc::{Common, Drawing, EntityKind, Line, Space, Viewport};
 use novacad_engine::geom::{Vec2, Vec3};
 use novacad_engine::snap::mode;
 use novacad_ui_egui::{CadApp, Services};
-use egui::{Event, Modifiers, PointerButton, Pos2, vec2};
-use egui_kittest::Harness;
-use egui_kittest::kittest::Queryable;
 use serde_json::json;
 
 fn harness(paper: bool, render: bool) -> Harness<'static, CadApp> {

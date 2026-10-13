@@ -1,8 +1,8 @@
 //! Tool Sets (left) and the Layers / Properties palettes (right).
 
+use egui::{Color32, Rect, Sense, Stroke, pos2, vec2};
 use novacad_color::Color;
 use novacad_doc::EntityKind;
-use egui::{Color32, Rect, Sense, Stroke, pos2, vec2};
 use serde_json::{Value, json};
 
 use crate::CadApp;

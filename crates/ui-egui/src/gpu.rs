@@ -17,11 +17,11 @@
 
 use std::sync::{Arc, Mutex};
 
+use egui_wgpu::wgpu;
+use egui_wgpu::wgpu::util::DeviceExt;
 use novacad_color::Rgb;
 use novacad_geom::{Bounds2, Vec2};
 use novacad_render::{DisplayList, Kind};
-use egui_wgpu::wgpu;
-use egui_wgpu::wgpu::util::DeviceExt;
 
 /// Line/triangle vertex: position (2 × f32, relative to the origin) + sRGB colour (4 × u8,
 /// premultiplied by its alpha: transparent objects blend with what is under them).

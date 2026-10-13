@@ -1,14 +1,14 @@
 //! The External References palette (#525): XREF opens it; its rows and buttons act through the
 //! engine's -XREF commands.
 
+use egui::vec2;
+use egui_kittest::Harness;
+use egui_kittest::kittest::Queryable;
 use novacad_engine::Session;
 use novacad_engine::cmd::file::{IoHooks, set_io};
 use novacad_engine::doc::geom::Vec3;
 use novacad_engine::doc::{Drawing, Entity, EntityKind, Handle, Layer, Line, XrefStatus};
 use novacad_ui_egui::{CadApp, Services, docking::Panel};
-use egui::vec2;
-use egui_kittest::Harness;
-use egui_kittest::kittest::Queryable;
 use serde_json::json;
 
 /// Test drawings: any file holds one line on layer Walls.

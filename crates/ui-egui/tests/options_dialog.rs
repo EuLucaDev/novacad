@@ -1,10 +1,10 @@
 //! OPTIONS: the dialog opens only when typed or chosen from the menu; the JSON form reads and sets
 //! the preferences; the user profile survives a restart (`profile_json` → `load_profile`).
 
+use egui::Color32;
 use novacad_engine::Session;
 use novacad_ui_egui::theme::Tokens;
 use novacad_ui_egui::{CadApp, Services, menus, options};
-use egui::Color32;
 use serde_json::{Value, json};
 
 fn app() -> CadApp {

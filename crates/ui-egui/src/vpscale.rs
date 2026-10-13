@@ -2,8 +2,8 @@
 //! the active viewport (MSPACE) or of the one selected viewport, and change it through
 //! `viewport.set`.
 
-use novacad_doc::{EntityKind, Handle, Space, Viewport};
 use egui::{Rect, Sense, pos2, vec2};
+use novacad_doc::{EntityKind, Handle, Space, Viewport};
 use serde_json::json;
 
 use crate::CadApp;

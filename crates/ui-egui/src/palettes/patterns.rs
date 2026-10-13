@@ -5,9 +5,9 @@
 use std::cell::RefCell;
 use std::sync::Arc;
 
+use egui::{Align2, Rect, Sense, Stroke, pos2, vec2};
 use novacad_engine::geom::Vec2;
 use novacad_engine::{Input, PatternChoice, Picker, pattern_choices};
-use egui::{Align2, Rect, Sense, Stroke, pos2, vec2};
 
 use crate::CadApp;
 use crate::theme::Tokens;

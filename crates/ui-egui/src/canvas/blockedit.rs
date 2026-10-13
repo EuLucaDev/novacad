@@ -2,8 +2,8 @@
 //! mistaken for the drawing, the block's base point marked at the origin, and a bar with the
 //! block's name and Save Block, Save Block As and Close Block Editor.
 
-use novacad_engine::geom::Vec2;
 use egui::{Rect, RichText, Stroke, vec2};
+use novacad_engine::geom::Vec2;
 use serde_json::json;
 
 use super::Xf;
