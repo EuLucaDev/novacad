@@ -16,13 +16,13 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Package
       Name="NovaCad"
-      Manufacturer="Learning Machines LLC"
+      Manufacturer="Nova Foods"
       Version="$(var.Version)"
-      UpgradeCode="119D7D76-0167-4A9E-8F37-09DA0235F68E"
+      UpgradeCode="46AB9968-C938-52EF-8242-A6E4478DB86D"
       Scope="perMachine"
       Compressed="yes"
       Language="1033">
-    <SummaryInformation Description="NovaCad computer-aided design" Manufacturer="Learning Machines LLC" />
+    <SummaryInformation Description="NovaCad computer-aided design" Manufacturer="Nova Foods" />
     <!-- Same-version upgrades let successive pre-releases of one X.Y.Z replace each other
          (MSI versions are numeric, so 1.2.3-rc.1 and 1.2.3-rc.2 are both 1.2.3). -->
     <MajorUpgrade AllowSameVersionUpgrades="yes"
@@ -48,7 +48,7 @@
     <!-- The previous install's choice (the shortcut component's HKCU key path, so the installing
          user's), so upgrades keep the desktop shortcut without asking again. -->
     <Property Id="PREVIOUSDESKTOPSHORTCUT">
-      <RegistrySearch Id="PreviousDesktopShortcut" Root="HKCU" Key="Software\Learning Machines LLC\NovaCad"
+      <RegistrySearch Id="PreviousDesktopShortcut" Root="HKCU" Key="Software\Nova Foods\NovaCad"
           Name="DesktopShortcut" Type="raw" />
     </Property>
     <!-- Only when DESKTOPSHORTCUT wasn't given; "first" runs it once (in the UI sequence when there
@@ -65,7 +65,7 @@
 
   <Fragment>
     <ComponentGroup Id="NovacadFiles" Directory="INSTALLFOLDER">
-      <Component Id="NovacadApp" Guid="2AC18056-48DE-4079-AB79-4FDEF4FBB075">
+      <Component Id="NovacadApp" Guid="309DAEC7-B194-5A0D-9ACD-52F987495994">
         <File Id="NovacadExe" Source="$(var.BinDir)\novacad.exe" KeyPath="yes">
           <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="NovaCad"
               Description="NovaCad computer-aided design" WorkingDirectory="INSTALLFOLDER" Advertise="yes"
@@ -86,12 +86,15 @@
       <!-- Optional desktop shortcut, removed on uninstall. A non-advertised shortcut needs a registry
            key path, and one in a profile folder (DesktopFolder, even though ALLUSERS=1 makes it the
            Public desktop) must be under HKCU (ICE38, ICE43, ICE57). -->
-      <Component Id="DesktopShortcut" Directory="DesktopFolder" Guid="76029CD7-EBDB-420F-AC34-FF0E82A99E32"
+      <Component Id="DesktopShortcut" Directory="DesktopFolder" Guid="3D4F76A1-99E5-5F41-BB45-502DA5E510AC"
           Condition="DESKTOPSHORTCUT = &quot;1&quot;">
         <Shortcut Id="DesktopShortcut" Name="NovaCad" Description="NovaCad computer-aided design"
             Target="[INSTALLFOLDER]novacad.exe" WorkingDirectory="INSTALLFOLDER" Icon="NovacadIcon.ico" IconIndex="0" />
-        <RegistryValue Root="HKCU" Key="Software\Learning Machines LLC\NovaCad" Name="DesktopShortcut"
+        <RegistryValue Root="HKCU" Key="Software\Nova Foods\NovaCad" Name="DesktopShortcut"
             Value="1" Type="string" KeyPath="yes" />
+      </Component>
+      <Component Id="NovaFoodsLegalNotice">
+        <File Id="NovaFoodsLegalNoticeFile" Source="$(sys.SOURCEFILEDIR)..\..\NOTICE" KeyPath="yes" />
       </Component>
     </ComponentGroup>
   </Fragment>
