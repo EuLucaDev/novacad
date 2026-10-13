@@ -1,0 +1,26 @@
+[package]
+name = "novacad-io"
+description = "NovaCad file formats: DXF read/write mapping, SVG, PNG and PDF export"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+novacad-geom = { workspace = true }
+novacad-color = { workspace = true }
+novacad-doc = { workspace = true }
+novacad-dxf = { workspace = true }
+novacad-dwg = { workspace = true }
+novacad-render = { workspace = true }
+novacad-fonts = { workspace = true }
+thiserror = { workspace = true }
+serde_json = { workspace = true }
+serde = { workspace = true }
+miniz_oxide = "0.8"
+quick-xml = { workspace = true }
+
+[dev-dependencies]
+tiny-skia = { workspace = true }

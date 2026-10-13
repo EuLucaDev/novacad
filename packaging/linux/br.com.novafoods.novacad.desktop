@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=Nova CAD
+GenericName=Computer-Aided Design
+Comment=Draft, dimension and plot 2D drawings; open DXF and DWG files
+Exec=novacad %F
+TryExec=novacad
+Icon=br.com.novafoods.novacad
+Terminal=false
+StartupNotify=true
+StartupWMClass=br.com.novafoods.novacad
+Categories=Graphics;Engineering;VectorGraphics;
+MimeType=image/vnd.dxf;image/vnd.dwg;application/x-dxf;application/acad;
+Keywords=cad;drafting;dxf;dwg;drawing;engineering;architecture;mechanical;
