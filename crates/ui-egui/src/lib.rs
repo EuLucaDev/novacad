@@ -9,8 +9,6 @@
 #![forbid(unsafe_code)]
 
 pub mod animation;
-#[cfg(not(target_arch = "wasm32"))]
-pub mod live_ui;
 pub mod autosave;
 pub mod bedit;
 pub mod canvas;
@@ -24,6 +22,8 @@ pub mod credits;
 pub mod dialogs;
 pub mod docking;
 pub mod hatchdlg;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod live_ui;
 mod mtext_editor;
 pub mod spacemouse;
 // The External References palette.
