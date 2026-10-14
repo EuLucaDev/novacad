@@ -1342,6 +1342,19 @@ pub fn show(app: &mut CadApp, ui: &mut egui::Ui) {
     let scale = f64::from(rect.height()) / view.height.max(1e-12);
     let xf = Xf { rect, center: view.center, scale };
     app.canvas.xf = Some(xf);
+    // Colaboração: o mouse vai em coordenadas do desenho, no espaço (modelo/folha) aberto.
+    #[cfg(not(target_arch = "wasm32"))]
+    if app.session.live_on_screen() {
+        app.live.view = Some(crate::live_ui::LiveView::new(
+            rect,
+            format!("{:?}", app.session.layout_space()),
+            move |p| {
+                let w = xf.to_world(p);
+                (w.x, w.y)
+            },
+            move |x, y| xf.to_screen(Vec2::new(x, y)),
+        ));
+    }
     // The paper (display) transform; equal to `xf` except inside an MSPACE viewport.
     let (xf_paper, active_vp) = match app.session.state() {
         Ok(st) => {
