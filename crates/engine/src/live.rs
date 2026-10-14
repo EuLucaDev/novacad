@@ -101,6 +101,10 @@ impl Session {
         let st = self.docs.get_mut(i).ok_or_else(|| err("sem desenho"))?;
         st.doc = Arc::new(d);
         st.revision += 1;
+        // O desfazer guarda fotos do desenho: depois de uma alteração de colega, desfazer o passo
+        // anterior apagaria o trabalho dele. O histórico local recomeça daqui.
+        st.undo.clear();
+        st.redo.clear();
         let doc = st.doc.clone();
         st.selection.retain(|h| doc.entity(*h).is_some());
         st.previous_selection.retain(|h| doc.entity(*h).is_some());
@@ -108,7 +112,8 @@ impl Session {
         Ok(())
     }
 
-    /// Roda o comando de um colega com a seleção dele; desfazer e seleção locais ficam como estavam.
+    /// Roda o comando de um colega com a seleção dele. A seleção local volta ao que era; o
+    /// histórico de desfazer local recomeça (desfazer não pode apagar o passo do colega).
     pub fn live_apply(&mut self, cmd: &str, params: &Value, ctx: &Value) -> Result<()> {
         if !remote_command_allowed(cmd) {
             return Err(err("comando não permitido na colaboração"));
@@ -116,10 +121,7 @@ impl Session {
         let i = self.live_index()?;
         let prev = self.active;
         self.active = i;
-        let (local_sel, undo_len) = {
-            let st = self.state()?;
-            (st.selection.clone(), st.undo.len())
-        };
+        let local_sel = self.state()?.selection.clone();
         if let Some(sel) = ctx.get("selection").and_then(|s| serde_json::from_value::<Vec<Handle>>(s.clone()).ok()) {
             self.state_mut()?.selection = sel;
         }
@@ -127,7 +129,8 @@ impl Session {
         let r = self.execute(cmd, params);
         self.live.applying = false;
         if let Ok(st) = self.state_mut() {
-            st.undo.truncate(undo_len);
+            st.undo.clear();
+            st.redo.clear();
             let doc = st.doc.clone();
             st.selection = local_sel.into_iter().filter(|h| doc.entity(*h).is_some()).collect();
             self.live.seen = Some(doc);

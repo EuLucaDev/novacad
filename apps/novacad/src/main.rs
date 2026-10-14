@@ -226,6 +226,8 @@ fn control_flag(current: Option<u16>, value: Option<String>) -> Option<u16> {
 }
 
 fn main() -> eframe::Result {
+    #[cfg(not(target_arch = "wasm32"))]
+    novacad_ui_egui::live_ui::install_link_handler();
     // First, so every start-up record is captured; see `logging`.
     let logger = logging::install();
     // lossy, so a value that is not Unicode is reported like any other bad port instead of ignored
