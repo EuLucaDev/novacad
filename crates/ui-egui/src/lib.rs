@@ -9,6 +9,8 @@
 #![forbid(unsafe_code)]
 
 pub mod animation;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod live_ui;
 pub mod autosave;
 pub mod bedit;
 pub mod canvas;
@@ -243,11 +245,16 @@ pub struct CadApp {
     pub hatch_dlg: Option<hatchdlg::HatchDlgState>,
     /// The Edit Block Definition dialog ([`bedit`]).
     pub bedit: bedit::State,
+    /// Colaboração em tempo real (Nova Live).
+    #[cfg(not(target_arch = "wasm32"))]
+    pub live: live_ui::LiveUi,
 }
 
 impl CadApp {
     pub fn new(session: Session, services: Services) -> Self {
         CadApp {
+            #[cfg(not(target_arch = "wasm32"))]
+            live: live_ui::LiveUi::default(),
             system_languages: Vec::new(),
             system_animations: None,
             session,
@@ -615,6 +622,8 @@ impl CadApp {
     }
 
     fn draw(&mut self, ui: &mut egui::Ui) {
+        #[cfg(not(target_arch = "wasm32"))]
+        live_ui::pump(self, &ui.ctx().clone());
         let t0 = now_ms();
         control::begin_frame(ui.ctx());
         let t = theme::Tokens::get();
@@ -636,6 +645,8 @@ impl CadApp {
                 chrome::start_page(self, ui);
             }
         });
+        #[cfg(not(target_arch = "wasm32"))]
+        live_ui::window(self, &ui.ctx().clone());
         dialogs::show(self, ui.ctx());
         palettes::patterns::prompt_picker(self, ui.ctx());
         closing::prompt(self, ui.ctx());

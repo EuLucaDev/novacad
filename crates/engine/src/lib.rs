@@ -9,6 +9,7 @@
 #![forbid(unsafe_code)]
 
 pub mod assoc;
+pub mod live;
 pub mod audit;
 pub mod autosave;
 pub mod blockedit;
@@ -612,6 +613,8 @@ impl Default for MLeaderOptions {
 
 /// The editor session: open drawings, settings, the running command and the command log.
 pub struct Session {
+    /// Colaboração em tempo real (Nova Live), ver `live`.
+    pub live: live::LiveState,
     pub docs: Vec<DocState>,
     pub active: usize,
     pub settings: Settings,
@@ -688,6 +691,7 @@ impl Session {
     /// A session with no open drawing (the Start tab).
     pub fn empty() -> Self {
         Session {
+            live: live::LiveState::default(),
             docs: Vec::new(),
             active: 0,
             settings: Settings::default(),
@@ -867,6 +871,7 @@ impl Session {
             return Err(EngineError::Disabled(spec.id.into(), why));
         }
         let before = self.state().ok().map(|s| (s.doc.clone(), s.selection.clone(), s.uid));
+        let live_ctx = self.live.doc.is_some().then(|| self.state().ok().map(|s| live::context(&s.selection))).flatten();
         let editing = self.state().is_ok_and(|s| s.block_edit.is_some());
         let run = spec.run;
         let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| run(self, params)));
@@ -909,6 +914,9 @@ impl Session {
                 st.push_undo(Snapshot { label: spec.label.to_string(), doc, selection: sel });
             }
             st.revision += 1;
+        }
+        if let Some(ctx) = live_ctx {
+            self.live_record(id, params, spec.undoable && result.is_ok(), ctx);
         }
         result
     }

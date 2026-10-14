@@ -233,7 +233,7 @@ fn main() -> eframe::Result {
         control_port_from("NOVACAD_CONTROL_PORT", std::env::var_os("NOVACAD_CONTROL_PORT").map(|p| p.to_string_lossy().into_owned()));
     let mut files = Vec::new();
     let mut sample = false;
-    let mut args = std::env::args().skip(1);
+    let mut args = std::env::args().skip(1).filter(|arg| !novacad_ui_egui::live_ui::is_invite_arg(arg));
     while let Some(a) = args.next() {
         match a.as_str() {
             "--control" => control_port = control_flag(control_port, args.next()),
@@ -309,6 +309,7 @@ fn main() -> eframe::Result {
         options,
         Box::new(move |cc| {
             let mut app = CadApp::new(Session::empty(), services());
+            app.live.pending_join = novacad_ui_egui::live_ui::launch_invite();
             let (workspace, restored, workspace_error) = workspace::Workspace::load();
             if let Some(ui) = restored {
                 app.ui = ui;

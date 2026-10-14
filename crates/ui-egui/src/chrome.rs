@@ -324,6 +324,8 @@ pub fn status_bar(app: &mut CadApp, ui: &mut egui::Ui) {
             }
             x += 22.0;
         }
+        #[cfg(not(target_arch = "wasm32"))]
+        { let label = if app.live.active() { format!("Ao vivo · {}", app.live.peers.len()) } else { "Colaborar".to_string() }; let br = Rect::from_min_size(pos2(x + 4.0, r.top() + 3.0), vec2(104.0, 20.0)); if ui.put(br, egui::Button::new(label)).on_hover_text("Editar este desenho ao vivo com outras pessoas").clicked() { app.live.open = true; } x += 112.0; }
         x = x.max(r.left() + if app.ui.show_toolsets { 232.0 } else { 60.0 });
         // Right side: toggles, right-aligned.
         let s = app.session.settings.clone();
