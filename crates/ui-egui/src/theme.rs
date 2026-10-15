@@ -22,6 +22,8 @@ pub enum ThemePref {
     /// The default: Nova CAD's original look.
     #[default]
     Dark,
+    /// One of the Nova Foods suite themes (Nova Photo's fourteen, from `nova-themes`).
+    Suite(nova_themes::ThemeKind),
 }
 
 /// The theme `System` uses when the OS (or browser) reports no appearance.
@@ -35,11 +37,23 @@ impl ThemePref {
             ThemePref::System => "system",
             ThemePref::Light => "light",
             ThemePref::Dark => "dark",
+            ThemePref::Suite(kind) => kind.id(),
         }
     }
 
     pub fn parse(s: &str) -> Option<ThemePref> {
-        ThemePref::ALL.into_iter().find(|t| t.as_str().eq_ignore_ascii_case(s.trim()))
+        ThemePref::ALL
+            .into_iter()
+            .find(|t| t.as_str().eq_ignore_ascii_case(s.trim()))
+            .or_else(|| nova_themes::ThemeKind::from_name(s.trim()).map(ThemePref::Suite))
+    }
+
+    /// The suite theme this choice paints, if any.
+    pub fn suite(self) -> Option<nova_themes::ThemeKind> {
+        match self {
+            ThemePref::Suite(kind) => Some(kind),
+            _ => None,
+        }
     }
 
     /// The theme to show, given what the OS reports (`ctx.system_theme()`).
@@ -48,6 +62,8 @@ impl ThemePref {
             ThemePref::System => system.unwrap_or(SYSTEM_FALLBACK),
             ThemePref::Light => Theme::Light,
             ThemePref::Dark => Theme::Dark,
+            ThemePref::Suite(kind) if kind.is_dark() => Theme::Dark,
+            ThemePref::Suite(_) => Theme::Light,
         }
     }
 }
@@ -55,6 +71,23 @@ impl ThemePref {
 thread_local! {
     /// The theme in use on the UI thread (set by [`set_active`] each frame).
     static ACTIVE: Cell<Theme> = const { Cell::new(Theme::Dark) };
+    /// The suite theme in use on the UI thread, if any (set by [`set_suite`] each frame).
+    static SUITE: Cell<Option<nova_themes::ThemeKind>> = const { Cell::new(None) };
+    /// The suite theme [`apply`] last installed into egui's styles.
+    static APPLIED_SUITE: Cell<Option<nova_themes::ThemeKind>> = const { Cell::new(None) };
+}
+
+pub fn set_suite(kind: Option<nova_themes::ThemeKind>) {
+    SUITE.with(|s| s.set(kind));
+}
+
+pub fn suite() -> Option<nova_themes::ThemeKind> {
+    SUITE.with(Cell::get)
+}
+
+/// The suite theme egui's styles hold now.
+pub fn applied_suite() -> Option<nova_themes::ThemeKind> {
+    APPLIED_SUITE.with(Cell::get)
 }
 
 /// The theme [`Tokens::get`] returns colours for.
@@ -215,7 +248,44 @@ impl Tokens {
 
     /// The palette of the theme in use, with the user's drawing-area colours ([`set_canvas`]).
     pub fn get() -> Tokens {
-        CANVAS.with(Cell::get).over(Tokens::of(active()))
+        let base = match suite() {
+            Some(kind) => Tokens::for_suite(kind),
+            None => Tokens::of(active()),
+        };
+        CANVAS.with(Cell::get).over(base)
+    }
+
+    /// A suite theme paints the chrome (bars, palettes, controls, fields, command line, text,
+    /// accent); the drawing area, grips, snaps and selection windows keep Nova CAD's colours.
+    pub fn for_suite(kind: nova_themes::ThemeKind) -> Tokens {
+        let p = kind.palette();
+        let dark = kind.is_dark();
+        let base = if dark { Tokens::DARK } else { Tokens::LIGHT };
+        let c = |x: nova_themes::Rgba| Color32::from_rgba_unmultiplied(x[0], x[1], x[2], x[3]);
+        Tokens {
+            chrome: c(p.chrome),
+            chrome_dark: c(p.dock),
+            panel: c(p.card),
+            tab_active: c(p.pressed),
+            control: c(p.field),
+            control_hover: c(p.hover),
+            border: c(p.card_border),
+            text: c(p.text),
+            text_dim: c(p.text_dim),
+            text_faint: c(p.text_faint),
+            icon: c(p.icon),
+            icon_accent: c(p.accent),
+            accent: c(p.accent),
+            cmd_bg: c(nova_themes::alpha(p.card, 0xf0)),
+            toggle_on: c(p.accent),
+            field: c(p.field),
+            select_bg: c(nova_themes::alpha(p.accent, if dark { 200 } else { 90 })),
+            cmd_history: c(nova_themes::alpha(p.dock, 0xdc)),
+            cmd_border: c(p.field_border),
+            list_bg: c(p.card),
+            list_row: c(p.hover),
+            ..base
+        }
     }
 
     /// These tokens with `bg` as the model-space background: the grid, axes, crosshair and the
@@ -629,7 +699,11 @@ pub fn can_show(language: &str) -> bool {
 
 /// egui's visuals for `theme`, from its tokens.
 fn visuals(theme: Theme) -> Visuals {
-    let t = Tokens::of(theme);
+    visuals_of(theme, Tokens::of(theme))
+}
+
+/// egui's visuals for `theme` with tokens `t`.
+fn visuals_of(theme: Theme, t: Tokens) -> Visuals {
     let mut v = match theme {
         Theme::Dark => Visuals::dark(),
         Theme::Light => Visuals::light(),
@@ -663,8 +737,17 @@ fn visuals(theme: Theme) -> Visuals {
 /// [`ThemePref::System`] choice, whose `theme` was resolved from the OS report.
 pub fn apply(ctx: &egui::Context, theme: Theme, follow_system: bool) {
     set_active(theme);
-    ctx.set_visuals_of(Theme::Dark, visuals(Theme::Dark));
-    ctx.set_visuals_of(Theme::Light, visuals(Theme::Light));
+    let suite = suite();
+    APPLIED_SUITE.with(|s| s.set(suite));
+    if let Some(kind) = suite {
+        // Both slots get the suite theme, so the OS appearance can't swap it out.
+        let v = visuals_of(theme, Tokens::for_suite(kind));
+        ctx.set_visuals_of(Theme::Dark, v.clone());
+        ctx.set_visuals_of(Theme::Light, v);
+    } else {
+        ctx.set_visuals_of(Theme::Dark, visuals(Theme::Dark));
+        ctx.set_visuals_of(Theme::Light, visuals(Theme::Light));
+    }
     // A System choice keeps egui's own System preference: a concrete Light/Dark would pin the native
     // window appearance (winit then stops reporting OS changes) and the app would never follow again.
     ctx.set_theme(if follow_system { egui::ThemePreference::System } else { egui::ThemePreference::from(theme) });

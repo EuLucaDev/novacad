@@ -555,9 +555,10 @@ impl CadApp {
         // browser report changes as input); the saved choice itself never changes here.
         let shown = self.ui.theme.resolve(ctx.system_theme());
         theme::set_active(shown);
+        theme::set_suite(self.ui.theme.suite());
         theme::set_canvas(self.options.canvas());
         let follows_system = self.ui.theme == theme::ThemePref::System;
-        if self.shown_theme != Some(shown) || self.shown_follows_system != follows_system {
+        if self.shown_theme != Some(shown) || self.shown_follows_system != follows_system || theme::applied_suite() != theme::suite() {
             theme::apply(ctx, shown, follows_system);
             self.shown_theme = Some(shown);
             self.shown_follows_system = follows_system;

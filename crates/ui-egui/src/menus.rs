@@ -42,6 +42,21 @@ pub const UI_COMMANDS: &[(&str, &str, &[&str], Option<&str>)] = &[
     ("ui.theme.system", "Use System Setting", &["View", "Interface Theme", "Use System Setting"], None),
     ("ui.theme.light", "Light", &["View", "Interface Theme", "Light"], None),
     ("ui.theme.dark", "Dark", &["View", "Interface Theme", "Dark"], None),
+    // Nova Foods suite themes (Nova Photo's fourteen).
+    ("ui.theme.pro", "Pro (Dark)", &["View", "Interface Theme", "Pro (Dark)"], None),
+    ("ui.theme.proMedium", "Pro (Medium Gray)", &["View", "Interface Theme", "Pro (Medium Gray)"], None),
+    ("ui.theme.proLightGray", "Pro (Light Gray)", &["View", "Interface Theme", "Pro (Light Gray)"], None),
+    ("ui.theme.proLight", "Pro (Light)", &["View", "Interface Theme", "Pro (Light)"], None),
+    ("ui.theme.studio", "Studio (Dark)", &["View", "Interface Theme", "Studio (Dark)"], None),
+    ("ui.theme.studioLight", "Studio (Light)", &["View", "Interface Theme", "Studio (Light)"], None),
+    ("ui.theme.classic", "Classic", &["View", "Interface Theme", "Classic"], None),
+    ("ui.theme.solarizedDark", "Solarized Dark", &["View", "Interface Theme", "Solarized Dark"], None),
+    ("ui.theme.adwaita", "Adwaita (Light)", &["View", "Interface Theme", "Adwaita (Light)"], None),
+    ("ui.theme.adwaitaDark", "Adwaita (Dark)", &["View", "Interface Theme", "Adwaita (Dark)"], None),
+    ("ui.theme.breezeLight", "Breeze Light", &["View", "Interface Theme", "Breeze Light"], None),
+    ("ui.theme.breezeDark", "Breeze Dark", &["View", "Interface Theme", "Breeze Dark"], None),
+    ("ui.theme.softDark", "Soft Dark", &["View", "Interface Theme", "Soft Dark"], None),
+    ("ui.theme.softLight", "Soft Light", &["View", "Interface Theme", "Soft Light"], None),
     ("ui.theme", "Interface Theme", &[], None),
     ("ui.saveformat.dxf", "DXF", &["File", "Default Save Format", "DXF"], None),
     ("ui.saveformat.dwg", "DWG", &["File", "Default Save Format", "DWG"], None),
@@ -246,7 +261,7 @@ fn run_ui_command_inner(app: &mut CadApp, id: &str, params: &Value) -> Option<Re
             toggle(&mut app.ui.in_window_menu, params);
             Ok(Value::Null)
         }
-        "ui.theme.system" | "ui.theme.light" | "ui.theme.dark" => {
+        suite if suite.starts_with("ui.theme.") && crate::theme::ThemePref::parse(suite.trim_start_matches("ui.theme.")).is_some() => {
             let pref = crate::theme::ThemePref::parse(id.trim_start_matches("ui.theme.")).unwrap_or_default();
             set_theme(app, pref)
         }
@@ -254,7 +269,7 @@ fn run_ui_command_inner(app: &mut CadApp, id: &str, params: &Value) -> Option<Re
         "ui.theme" => match params.get("theme").and_then(Value::as_str) {
             Some(name) => match crate::theme::ThemePref::parse(name) {
                 Some(pref) => set_theme(app, pref),
-                None => Err(format!("unknown theme \"{name}\" (system, light or dark)")),
+                None => Err(format!("unknown theme \"{name}\" (system, light, dark or a suite theme id: studio, proMedium, classic…)")),
             },
             None => Ok(theme_json(app)),
         },

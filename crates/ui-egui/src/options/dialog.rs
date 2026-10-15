@@ -98,6 +98,7 @@ fn theme_label(t: ThemePref) -> &'static str {
         ThemePref::System => crate::tl!("Use System Setting"),
         ThemePref::Light => crate::tl!("Light"),
         ThemePref::Dark => crate::tl!("Dark"),
+        ThemePref::Suite(kind) => kind.label(),
     }
 }
 
@@ -140,7 +141,10 @@ fn display(app: &CadApp, ui: &mut egui::Ui, changes: &mut Map<String, Value>) {
         ui.label(crate::tl!("Interface theme"));
         let mut theme = app.ui.theme;
         egui::ComboBox::from_id_salt("options_theme").selected_text(theme_label(theme)).show_ui(ui, |ui| {
-            for t in ThemePref::ALL {
+            for t in ThemePref::ALL.into_iter().chain(nova_themes::ThemeKind::ALL.into_iter().map(ThemePref::Suite)) {
+                if matches!(t, ThemePref::Suite(nova_themes::ThemeKind::Pro)) {
+                    ui.separator();
+                }
                 ui.selectable_value(&mut theme, t, theme_label(t));
             }
         });
