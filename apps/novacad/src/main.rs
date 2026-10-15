@@ -89,6 +89,10 @@ impl eframe::App for App {
         novacad_ui_egui::cmdline::capture_tab(ctx, raw);
     }
     fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
+        #[cfg(not(target_arch = "wasm32"))]
+        if !novacad_ui_egui::account_ui::gate(ui, "novacad") {
+            return;
+        }
         self.cad.ui(ui);
         self.persist_workspace(false);
     }
