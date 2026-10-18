@@ -2379,7 +2379,7 @@ dependencies = [
 
 [[package]]
 name = "novacad"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "eframe",
  "egui",
@@ -2401,7 +2401,7 @@ dependencies = [
 
 [[package]]
 name = "novacad-cli"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "novacad-engine",
  "novacad-io",
@@ -2412,14 +2412,14 @@ dependencies = [
 
 [[package]]
 name = "novacad-color"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "novacad-constraints"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "novacad-doc",
  "novacad-geom",
@@ -2429,7 +2429,7 @@ dependencies = [
 
 [[package]]
 name = "novacad-doc"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "novacad-color",
  "novacad-geom",
@@ -2440,14 +2440,14 @@ dependencies = [
 
 [[package]]
 name = "novacad-dwg"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "acadrust",
 ]
 
 [[package]]
 name = "novacad-dxf"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "encoding_rs",
  "log",
@@ -2456,7 +2456,7 @@ dependencies = [
 
 [[package]]
 name = "novacad-engine"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "craft-docpath",
  "log",
@@ -2476,7 +2476,7 @@ dependencies = [
 
 [[package]]
 name = "novacad-fonts"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "harfrust",
  "novacad-geom",
@@ -2486,14 +2486,14 @@ dependencies = [
 
 [[package]]
 name = "novacad-geom"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "serde",
 ]
 
 [[package]]
 name = "novacad-io"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "miniz_oxide 0.8.9",
  "novacad-color",
@@ -2512,7 +2512,7 @@ dependencies = [
 
 [[package]]
 name = "novacad-mcp"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "log",
  "novacad-engine",
@@ -2523,7 +2523,7 @@ dependencies = [
 
 [[package]]
 name = "novacad-render"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "lyon_tessellation",
  "novacad-color",
@@ -2537,7 +2537,7 @@ dependencies = [
 
 [[package]]
 name = "novacad-ui-egui"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "egui",
  "egui-wgpu",
@@ -2562,7 +2562,7 @@ dependencies = [
 
 [[package]]
 name = "novacad-web"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "eframe",
  "egui",
@@ -5228,7 +5228,7 @@ checksum = "e450f9b2ed1dff33c94c12589a87338689467b9c4f5d8a5710bd09a847d2c8a7"
 
 [[package]]
 name = "xtask"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "serde_json",
 ]
