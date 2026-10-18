@@ -25,6 +25,8 @@ novacad-io = { path = "crates/io" }
 novacad-engine = { path = "crates/engine" }
 novacad-ui-egui = { path = "crates/ui-egui" }
 novacad-mcp = { path = "crates/mcp" }
+# Which paths stored in a drawing (xrefs, data links) may be opened.
+craft-docpath = { path = "vendor/novafoods-libs-82a24b006e/crates/docpath" }
 
 # foundation
 thiserror = "2"
